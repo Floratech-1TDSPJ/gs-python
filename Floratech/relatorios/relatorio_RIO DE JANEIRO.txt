@@ -1,0 +1,6 @@
+RELATÓRIO DE QUEIMADAS
+Cidade: RIO DE JANEIRO
+Total de focos: 3
+Média de risco: -332.92
+Média de FRP: 5.30
+Satélite principal: GOES-19

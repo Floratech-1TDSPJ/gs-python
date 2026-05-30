@@ -1,0 +1,15 @@
+def mostrar_menu():
+
+    print("\n" + "=" * 60)
+    print("SISTEMA NACIONAL DE MONITORAMENTO DE QUEIMADAS")
+    print("=" * 60)
+    print("1 - Consultar cidade")
+    print("2 - Histórico de consultas")
+    print("3 - Estatísticas")
+    print("4 - Listar cidades")
+    print("5 - Sobre o projeto")
+    print("6 - Sair")
+    print("7 - Gerar relatório da cidade")
+    print("8 - Ranking de risco")
+    print("9 - Ranking por bioma")
+    print("10 - Comparação entre biomas")
