@@ -9,7 +9,7 @@ sys.path.append(
         "src"
     )
 )
-
+from login import (inicializar_arquivo, cadastrar_usuario, fazer_login, mostrar_titulo)
 from leitor import carregar_dados
 from menu import mostrar_menu
 from historico import adicionar_consulta, mostrar_historico
@@ -26,11 +26,9 @@ caminho_csv = os.path.join(
 
 # Carrega dados
 dados = carregar_dados(caminho_csv)
+inicializar_arquivo()
 
-nome = input("Digite seu nome: ")
-
-
-
+# Login
 def calcular_risco_medio(registros):
 
     soma = 0
@@ -51,7 +49,27 @@ def filtrar_por_bioma(dados, bioma):
             filtrado[cidade] = registros
 
     return filtrado
-
+usuario_logado = None
+while usuario_logado is None:
+    mostrar_titulo()
+    print("\n1 - Fazer Login")
+    print("2 - Cadastrar Usuário")
+    print("3 - Sair")
+    opcao_inicio = input("\nEscolha uma opção: ")
+    if opcao_inicio == "1":
+        usuario = fazer_login()
+        if usuario:
+            usuario_logado = usuario
+            print(f"\nBem-vindo, {usuario_logado}!")
+        else:
+            print("\nEmail ou senha incorretos. Tente novamente.")
+    elif opcao_inicio == "2":
+        cadastrar_usuario()
+    elif opcao_inicio == "3":
+        print("\nAté logo!")
+        sys.exit()
+    else:
+        print("\nOpção inválida. Tente novamente.")
 # Loop
 while True:
 
@@ -149,33 +167,16 @@ while True:
         print(f"Total de cidades: {len(dados)}")
         print(f"Maior risco: {maior_risco}")
         print(f"Cidade mais crítica: {cidade_maior_risco}")
-    # Lista
-    elif opcao == "4":
-
-        print("\nLISTA DE CIDADES")
-        print("-" * 40)
-
-        cidades = sorted(dados.keys())
-
-        for cidade in cidades[:100]:
-            print(cidade)
-
-        print(f"\nTotal de cidades: {len(cidades)}")
-    # Sobre
-    elif opcao == "5":
-
-        print("\nSOBRE O PROJETO")
-        print("-" * 40)
-        print("FLORATECH - Monitoramento de Queimadas")
+   
 
     # Sair
     elif opcao == "6":
 
-        print(f"\nAté logo, {nome}!")
+        print(f"\nAté logo, {usuario_logado}!")
         break
 
     # Relatorio
-    elif opcao == "7":
+    elif opcao == "4":
 
         cidade = input("\nDigite a cidade: ").strip().upper()
 
@@ -202,38 +203,9 @@ while True:
 
         for i, (cidade, media) in enumerate(ranking[:10], start=1):
             print(f"{i} - {cidade} | risco médio: {media:.2f}")
-    # Ranking por bioma
-    elif opcao == "9":
-
-        bioma = input("\nDigite o bioma: ").strip()
-
-        dados_filtrados = filtrar_por_bioma(dados, bioma)
-
-        if len(dados_filtrados) == 0:
-
-            print("\nNenhuma cidade encontrada nesse bioma.")
-
-        else:
-
-            ranking = []
-
-            for cidade, registros in dados_filtrados.items():
-
-                media = calcular_risco_medio(registros)
-
-                ranking.append((cidade, media))
-
-            ranking.sort(key=lambda x: x[1], reverse=True)
-
-            print(f"\nTOP CIDADES DO BIOMA: {bioma.upper()}")
-            print("-" * 40)
-
-            for i, (cidade, media) in enumerate(ranking[:10], start=1):
-
-                print(f"{i} - {cidade} | risco médio: {media:.2f}")
-
+   
     # Comparacao entre biomas
-    elif opcao == "10":
+    elif opcao == "5":
 
         bioma1 = input("\nDigite o primeiro bioma: ").strip()
         bioma2 = input("Digite o segundo bioma: ").strip()

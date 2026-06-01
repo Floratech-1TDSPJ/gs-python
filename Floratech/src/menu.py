@@ -1,15 +1,13 @@
 def mostrar_menu():
 
-    print("\n" + "=" * 60)
-    print("SISTEMA NACIONAL DE MONITORAMENTO DE QUEIMADAS")
-    print("=" * 60)
+    print("\n" + "=" * 40)
+    print("            FLORATECH")
+    print("    Monitoramento de Queimadas")
+    print("=" * 40)
+
     print("1 - Consultar cidade")
     print("2 - Histórico de consultas")
     print("3 - Estatísticas")
-    print("4 - Listar cidades")
-    print("5 - Sobre o projeto")
+    print("4 - Gerar relatório da cidade")
+    print("5 - Comparação entre biomas")
     print("6 - Sair")
-    print("7 - Gerar relatório da cidade")
-    print("8 - Ranking de risco")
-    print("9 - Ranking por bioma")
-    print("10 - Comparação entre biomas")
