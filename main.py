@@ -207,27 +207,72 @@ while True:
     # Comparacao entre biomas
     elif opcao == "5":
 
-        bioma1 = input("\nDigite o primeiro bioma: ").strip()
-        bioma2 = input("Digite o segundo bioma: ").strip()
+        # Primeira cidade
+        busca1 = input("\nDigite parte do nome da primeira cidade: ").strip().upper()
 
-        dados1 = filtrar_por_bioma(dados, bioma1)
-        dados2 = filtrar_por_bioma(dados, bioma2)
+        resultados1 = []
 
-        if len(dados1) == 0 or len(dados2) == 0:
+        for cidade in sorted(dados.keys()):
+            if busca1 in cidade:
+                resultados1.append(cidade)
 
-            print("\nNenhum dado encontrado.")
+        if len(resultados1) == 0:
+            print("\nPrimeira cidade não encontrada.")
+            continue
 
+        print("\nCIDADES ENCONTRADAS:\n")
+
+        for i, cidade in enumerate(resultados1, start=1):
+            print(f"{i} - {cidade}")
+
+        try:
+            escolha1 = int(input("\nEscolha a primeira cidade: "))
+            cidade1 = resultados1[escolha1 - 1]
+        except:
+            print("\nEscolha inválida.")
+            continue
+
+        # Segunda cidade
+        busca2 = input("\nDigite parte do nome da segunda cidade: ").strip().upper()
+
+        resultados2 = []
+
+        for cidade in sorted(dados.keys()):
+            if busca2 in cidade:
+                resultados2.append(cidade)
+
+        if len(resultados2) == 0:
+            print("\nSegunda cidade não encontrada.")
+            continue
+
+        print("\nCIDADES ENCONTRADAS:\n")
+
+        for i, cidade in enumerate(resultados2, start=1):
+            print(f"{i} - {cidade}")
+
+        try:
+            escolha2 = int(input("\nEscolha a segunda cidade: "))
+            cidade2 = resultados2[escolha2 - 1]
+        except:
+            print("\nEscolha inválida.")
+            continue
+
+        registros1 = dados[cidade1]
+        registros2 = dados[cidade2]
+
+        risco1 = calcular_risco_medio(registros1)
+        risco2 = calcular_risco_medio(registros2)
+
+        print("\n" + "=" * 50)
+        print("COMPARAÇÃO ENTRE CIDADES")
+        print("=" * 50)
+        print(f"{cidade1}: risco médio {risco1:.2f}")
+        print(f"{cidade2}: risco médio {risco2:.2f}")
+
+        if risco1 > risco2:
+            print(f"\n{cidade1} possui maior risco médio.")
+        elif risco2 > risco1:
+            print(f"\n{cidade2} possui maior risco médio.")
         else:
-
-            media1 = sum(calcular_risco_medio(r) for r in dados1.values()) / len(dados1)
-            media2 = sum(calcular_risco_medio(r) for r in dados2.values()) / len(dados2)
-
-            print("\nCOMPARAÇÃO ENTRE BIOMAS")
-            print("-" * 40)
-            print(f"{bioma1.upper()}: {media1:.2f}")
-            print(f"{bioma2.upper()}: {media2:.2f}")
-
-    else:
-
-        print("\nOpção inválida.") 
+            print("\nAs duas cidades possuem o mesmo risco médio.")
         
